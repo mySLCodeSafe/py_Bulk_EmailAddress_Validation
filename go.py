@@ -1,3 +1,7 @@
+#! /usr/bin/python
+# Author: shamilakhani@hotmail.com
+# Amendment-History: Introducing multithreading for MX validation
+
 # start section #################
 import csv, traceback
 from coreengine import *
