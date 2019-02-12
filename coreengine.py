@@ -1,5 +1,7 @@
 import sys, time, os
 
+# TODO add traceback to error messages
+
 # Params:
 module_version="v1.1" # module version
 ce_input_folder="./input/" # set the input folder
