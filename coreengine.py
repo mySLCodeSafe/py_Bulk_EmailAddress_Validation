@@ -28,7 +28,7 @@ def ce_validateDomain_MX_viaLocal (ext_domainToValidate):
         DNS_SERVERS = ['1.1.1.1']
         __validationResult = False
         dns_lookup_construct = dns.message.make_query(ext_domainToValidate, dns.rdatatype.MX)
-        dns_lookup_response = dns.query.udp(dns_lookup_construct, DNS_SERVERS[0], timeout=5)
+        dns_lookup_response = dns.query.udp(dns_lookup_construct, DNS_SERVERS[0], timeout=10)
         if (bool(dns_lookup_response.answer)):
             __validationResult = True
         return __validationResult
