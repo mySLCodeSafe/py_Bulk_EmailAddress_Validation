@@ -1,10 +1,10 @@
-# Author: shamilakhani@hotmail.com
+__author__ = "shami.lakhani@argos.co.uk"
 # Amendment-History: Introducing multithreading for MX validation
 
 # start section #################
 import csv, traceback
 from coreengine import *
-from classes_bucket import digitalCustomer
+from user_dataStructure_class import digitalCustomer
 
 # **script params:**
 input_dataFile=ce_input_folder+"sampleSet.csv"
@@ -82,4 +82,3 @@ if __name__ == "__main__":
     except Exception:
         traceback_message = traceback.format_exc()
         ce_logging ("Main","Error occured  --> "+str(traceback_Message),"ERROR")
-
