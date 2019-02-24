@@ -29,7 +29,7 @@ import sys, os, re
 
 from queue import Queue
 
-concurrent = 10
+concurrent = 2
 success = 0
 errors = 0
 
@@ -54,21 +54,23 @@ for i in range(concurrent):
     t = Thread(target=doWork)
     t.daemon = True
     t.start()
-try:
-    for url in open('./input/sampleAllDomains.csv'):  #Location of your CSV containing one domain per line
-        q.put(url.strip())
-    q.join()
-except KeyboardInterrupt:
-    sys.exit(1)
+    sleep(6)
+    print("wait")
+#try:
+ #   for url in open('./input/sampleAllDomains.csv'):  #Location of your CSV containing one domain per line
+  #      q.put(url.strip())
+   # q.join()
+#except KeyboardInterrupt:
+ #   sys.exit(1)
 
 end = time.time()
 
 
 print ("############################")
 print ("execution time:", (end-start))
-sleep (2)
-for i in test:
-    print (i)
+#sleep (2)
+#for i in test:
+ #   print (i)
 
 
 

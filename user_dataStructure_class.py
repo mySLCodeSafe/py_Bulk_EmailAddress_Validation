@@ -3,6 +3,6 @@ class digitalCustomer():
      #   self.WCSID = ext_WCS_ID
       #  self.EmailAddress = str(ext_email_ID).lower()
 
-    def __init__(self, ext_email_ID, ext_validMX=True):
+    def __init__(self, ext_email_ID):
         self.EmailAddress = str(ext_email_ID).lower()
-        self.ValidMXdomain = ext_validMX
+        self.ValidMXdomain = True # default value is True - every domain has a valid MX record unless indicated otherwise

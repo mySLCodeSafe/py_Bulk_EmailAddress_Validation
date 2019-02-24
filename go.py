@@ -15,7 +15,6 @@ output_dataFile=ce_output_folder+"custDataLoad_dump.csv"
 cust_DataSet=[] # create list of dictionaries that will be used as customer dataset
 validation_inValidMXDomains = set () # Using a set (to remove duplicates) to hold domains that have a invalid MX record; assumption is that invalid will be smaller than valid.
 
-
 ## Default run:
 if __name__ == "__main__":
     try:
