@@ -1,4 +1,5 @@
 __author__ = "shami.lakhani@homeretailgroup.com"
+__version__ = "1 - base build"
 
 import traceback
 from threading import Thread, current_thread
