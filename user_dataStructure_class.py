@@ -1,34 +1,36 @@
-class sterlingCustomer(object):
-    def __init__(self, ext_orderNo, ext_orderStatus, ext_email_ID, ext_fastTrack=None, ext_validMXdomain=None):
-        self.orderNo = ext_orderNo
-        self.orderStatus = ext_orderStatus
-        self.fastTrackOrder = ext_fastTrack
-        self.emailAddress = ext_email_ID
-        self.validMXdomain = ext_validMXdomain
-
-    def set_validMXDomain(self, ext_result):
-        self.validMXdomain = ext_result
-
-    def get_validMXDomain(self):
-        if (self.validMXdomain == None) or (self.validMXdomain == False):
-            return False
-        else:
-            return True
+class Customer:
+    def __init__(self, ext_custEmailAddress):
+        self.emailAddress = ext_custEmailAddress
 
     def get_emailAddressDomain(self):
         __emailAddress = self.emailAddress
         __emailDomain = __emailAddress.split('@')[1].lower()
         return __emailDomain
 
-    def get_emailAddress(self): # return back a boolean value to indicate if the email address structure is correct
-        rtn_result = self.emailAddress.lower()
-        return rtn_result
+class Order(Customer):
+    def __init__(self, ext_custEmailAddress, ext_orderNo, ext_orderStatus, ext_isitFastTrack=None):
+        self.orderNo = ext_orderNo
+        self.orderStatus = ext_orderStatus
+        self.isitFastTrackOrder = ext_isitFastTrack
+        Customer.__init__(self,ext_custEmailAddress)
 
-    def get_fastTrackOrder(self):
-        if self.fastTrackOrder == 'N':
+    # Override - set hash of class based on order number
+    def __hash__(self):
+        return (hash(self.orderNo))
+
+    # Override - only keep DUPLICATE orders that have a 'collected' status
+    def __eq__(self, other):
+        if self.orderStatus == "collected" or other.orderStatus == "collected":
+            self.orderStatus = "collected"
+        else:
+            self.orderStatus = "cancelled"
+        return self.orderNo == other.orderNo
+
+    def get_isitFastTrack(self):
+        if (self.isitFastTrackOrder == 'N') or (self.isitFastTrackOrder == "(null") or (self.isitFastTrackOrder == None):
             return False
         else:
             return True
 
-    def get_orderStatus(self):
-        return self.get_orderStatus
+    def get_allDetails(self):
+        return (":: " + str(self.emailAddress) +" , "+ str(self.get_emailAddressDomain()) +" , " + str(self.orderNo) +" , "+ str(self.orderStatus) + " , " + str(self.get_isitFastTrack()))
