@@ -3,16 +3,17 @@ __author__ = "shami.lakhani@argos.co.uk"
 # Requirements: Input folder to hold source files; output folder to write results; log folder to write log files (see coreengine.py for more information)
 
 # start section #################
-import csv, traceback, time
+import csv, traceback, time, sys
 from coreengine import ce_input_folder, ce_output_folder, ce_logging, ce_tmp_folder  # (ce_)
 from validate_domain_MX_record import vdmr_main_processDataSet  # (vdmx_)
 from user_dataStructure_class import digitalCustomer
 
 # **script params:**
 runID = time.strftime("%Y%m%d%H%M%S")
-input_dataFile=ce_input_folder+"WCS_User_Details_Nov17.csv"
-output_dataFile=ce_output_folder+"custDataLoad_dump_"+runID+".csv"
-
+input_dataFile=ce_input_folder+sys.argv[-2] # Capture user input : File name
+output_nameStamp = sys.argv[-1] # Capture user input : name stamp to cat in all output files to identify run
+output_dataFile=ce_output_folder+output_nameStamp+"_processedDataLoadExtract_MXValidation.csv"
+tempFile = ce_tmp_folder+"invalidDomainsList_"+output_nameStamp+"_"+runID+".tmp" # temp file to hold invalid domain list
 cust_DataSet=[] # create list of classes that will be the customer dataset
 inValidMXDomainsList = [] # list to hold all domains that does not have a valid MX record
 
@@ -35,7 +36,6 @@ if __name__ == "__main__":
         ce_logging ("ValidateEmailDomainForMX","Validating e-mail address domains for a MX reord","DEBUG")
         try:
             inValidMXDomainsList = vdmr_main_processDataSet(cust_DataSet)
-            tempFile = ce_tmp_folder+"invalidDomainsList_"+runID+".tmp" # temp file to hold invalid domain list
             with open(tempFile, 'w') as f: # write out the invalid domain list to the temp folder
                 for domain in inValidMXDomainsList: f.write(str(domain) + '\n')
             ce_logging ("ValidateEmailDomainForMX","Stored invalid domains in location: "+tempFile,"INFO")
