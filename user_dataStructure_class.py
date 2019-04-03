@@ -20,10 +20,10 @@ class Order(Customer):
 
     # Override - only keep DUPLICATE orders that have a 'collected' status
     def __eq__(self, other):
-        if self.orderStatus == "collected" or other.orderStatus == "collected":
-            self.orderStatus = "collected"
+        if self.orderStatus == "3700.6" or other.orderStatus == "3700.6":
+            self.orderStatus = "3700.6"
         else:
-            self.orderStatus = "cancelled"
+            self.orderStatus = "9000"
         return self.orderNo == other.orderNo
 
     def get_isitFastTrack(self):
@@ -34,4 +34,4 @@ class Order(Customer):
 
     def get_allDetails(self):
         delimiterchar=","
-        return (str(self.emailAddress)+delimiterchar+ str(self.orderNo)+delimiterchar+str(self.orderStatus)+delimiterchar+str(self.get_isitFastTrack()))
+        return (str(self.orderNo)+delimiterchar+str(self.orderStatus)+delimiterchar+str(self.get_isitFastTrack())+delimiterchar+str(self.emailAddress))

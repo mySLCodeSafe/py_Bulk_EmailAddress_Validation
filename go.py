@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
                 # mapping of extracting data:
                 orderNo = row[0]
-                orderStatus = [10]
+                orderStatus = row[10]
                 emailAddress = row[2]
                 fastTrackOrder=row [7]
 
@@ -48,11 +48,11 @@ if __name__ == "__main__":
     ## Export_CustDS :: export to output file:
         ce_logging ("Export_CustDS","Exporting customer dataset to file: "+str(output_dataFile),"INFO")
         with open (output_dataFile,'w+') as f:
-           # writer = csv.writer(f, delimiter=',',lineterminator='\n')
+            delimiterchar=","
+            endlinechar="\n"
+            f.write ("Order #"+delimiterchar+"Order_status"+delimiterchar+"PrePay"+delimiterchar+"Customer_EmailAddress"+delimiterchar+"ValidMX_Record"+endlinechar)
             for i in cust_DataSet: # iterate through customer dataset
                 try:
-                    delimiterchar=","
-                    endlinechar="\n"
                     cust_DataSet_output = i.get_allDetails()
                     customData_validMX = str((i.get_emailAddressDomain() not in inValidMXDomainsList))
                     f.write  (cust_DataSet_output+delimiterchar+customData_validMX+endlinechar)
