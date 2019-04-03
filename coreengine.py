@@ -1,27 +1,11 @@
 import sys, time, os
 
-# TODO add traceback to error messages
-
 # Params:
 module_version="v1.1" # module version
 ce_input_folder="./input/" # set the input folder
 ce_output_folder="./output/" # set the output folder
 ce_tmp_folder="./tmp/"
 ce_log_file="./logs/logfile_{}.log".format(time.strftime("%Y%m%d%H%M%S")) # set the log file name
-
-# functions to be used:
-
-def ce_display_progress(count, total, status=''):   # uses the sys library
-    try:
-        bar_len = 60
-        filled_len = int(round(bar_len * count / float(total)))
-        percents = round(100.0 * count / float(total), 1)
-        bar = '=' * filled_len + '-' * (bar_len - filled_len)
-        sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', status))
-        sys.stdout.flush()
-    except Exception as e:
-        ce_logging ("ce_display_progress","Issue occured: "+str(e),"ERROR")
-
 
 def ce_logging (ext_processName, ext_messageToLog, ext_messageLevel):
     try:
