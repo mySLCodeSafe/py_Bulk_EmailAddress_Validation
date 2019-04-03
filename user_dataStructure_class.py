@@ -20,8 +20,8 @@ class Order(Customer):
 
     # Override - only keep DUPLICATE orders that have a 'collected' status
     def __eq__(self, other):
-        if self.orderStatus == "3700.6" or other.orderStatus == "3700.6":
-            self.orderStatus = "3700.6"
+        if self.orderStatus == "3700.600" or other.orderStatus == "3700.600":
+            self.orderStatus = "3700.600"
         else:
             self.orderStatus = "9000"
         return self.orderNo == other.orderNo

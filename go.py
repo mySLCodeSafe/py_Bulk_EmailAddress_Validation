@@ -28,9 +28,9 @@ if __name__ == "__main__":
 
                 # mapping of extracting data:
                 orderNo = row[0]
-                orderStatus = row[10]
                 emailAddress = row[2]
-                fastTrackOrder=row [7]
+                fastTrackOrder=row [5]
+                orderStatus = row[6]
 
                 # load data into class within set:
                 cust_DataSet.add (Order(emailAddress,orderNo,orderStatus,fastTrackOrder))
