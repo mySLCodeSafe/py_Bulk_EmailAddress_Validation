@@ -1,11 +1,18 @@
 class Customer:
-    def __init__(self, ext_custEmailAddress):
+    def __init__(self, ext_custEmailAddress, ext_isitValidMX=None):
         self.emailAddress = ext_custEmailAddress
+        self.email_isitValidMX = ext_isitValidMX
 
     def get_emailAddressDomain(self):
         __emailAddress = self.emailAddress
         __emailDomain = __emailAddress.split('@')[1].lower()
         return __emailDomain
+
+    def set_validMX(self, value):
+        self.email_isitValidMX = value
+
+    def get_validMX(self):
+        return self.email_isitValidMX
 
 class Order(Customer):
     def __init__(self, ext_custEmailAddress, ext_orderNo, ext_orderStatus, ext_isitFastTrack=None):

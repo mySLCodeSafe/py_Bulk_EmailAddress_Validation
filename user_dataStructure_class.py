@@ -33,4 +33,5 @@ class Order(Customer):
             return True
 
     def get_allDetails(self):
-        return (":: " + str(self.emailAddress) +" , "+ str(self.get_emailAddressDomain()) +" , " + str(self.orderNo) +" , "+ str(self.orderStatus) + " , " + str(self.get_isitFastTrack()))
+        delimiterchar=","
+        return (str(self.emailAddress)+delimiterchar+ str(self.orderNo)+delimiterchar+str(self.orderStatus)+delimiterchar+str(self.get_isitFastTrack()))
