@@ -1,3 +1,6 @@
+__author__ = "shami.lakhani@argos.co.uk"
+__reference__ = "https://jira.sainsburysargos.io/browse/TTT-1611"
+
 class Customer:
     def __init__(self, ext_custEmailAddress):
         self.emailAddress = ext_custEmailAddress
@@ -34,4 +37,4 @@ class Order(Customer):
 
     def get_allDetails(self):
         delimiterchar=","
-        return (str(self.orderNo)+delimiterchar+str(self.orderStatus)+delimiterchar+str(self.get_isitFastTrack())+delimiterchar+str(self.emailAddress))
+        return (str(self.orderNo)+delimiterchar+str(self.orderStatus)+delimiterchar+str(self.get_isitFastTrack())+delimiterchar+str(self.get_emailAddressDomain()))

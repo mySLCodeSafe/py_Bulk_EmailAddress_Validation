@@ -1,4 +1,5 @@
 __author__ = "shami.lakhani@argos.co.uk"
+__reference__ = "https://jira.sainsburysargos.io/browse/TTT-1611"
 
 # start section #################
 import csv, traceback, time, sys
@@ -22,6 +23,7 @@ if __name__ == "__main__":
 
     ## LoadCustomerDataset :: load customer dataset for analysis using external data file:
         ce_logging ("LoadCustomerDataset","Generating customer dataset from input file:" + str(input_dataFile),"INFO")
+        from validate_email import validate_email
         with open(input_dataFile, 'r') as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',') # uses: csv.reader
             for row in readCSV:
@@ -33,7 +35,10 @@ if __name__ == "__main__":
                 orderStatus = row[6]
 
                 # load data into class within set:
-                cust_DataSet.add (Order(emailAddress,orderNo,orderStatus,fastTrackOrder))
+                if validate_email(emailAddress): # if e-mail address is of a correct structure, then load:
+                    cust_DataSet.add (Order(emailAddress,orderNo,orderStatus,fastTrackOrder))
+                else:
+                    ce_logging ("LoadCustomerDataset", "Detected a malformed e-mail address during load: "+emailAddress+" , it was ignored","ERROR")
         ce_logging ("LoadCustomerDataset", "Completed generating customer dataset. Loaded: " + str(len(cust_DataSet)) + " records.","INFO")
 
     ## Validate_CustomerEmailAddressMXRecord
@@ -43,14 +48,14 @@ if __name__ == "__main__":
         for i in cust_DataSet:
                 allCustEmailDomains.add (i.get_emailAddressDomain())
 
-        inValidMXDomainsList = vdmr_main_processDataSet(allCustEmailDomains,True)
+        inValidMXDomainsList = vdmr_main_processDataSet(allCustEmailDomains)
 
     ## Export_CustDS :: export to output file:
         ce_logging ("Export_CustDS","Exporting customer dataset to file: "+str(output_dataFile),"INFO")
         with open (output_dataFile,'w+') as f:
             delimiterchar=","
             endlinechar="\n"
-            f.write ("Order #"+delimiterchar+"Order_status"+delimiterchar+"PrePay"+delimiterchar+"Customer_EmailAddress"+delimiterchar+"ValidMX_Record"+endlinechar)
+            f.write ("Order #"+delimiterchar+"Order_status"+delimiterchar+"PrePay"+delimiterchar+"EmailAddressDomain"+delimiterchar+"isit_ValidMX_Record"+endlinechar)
             for i in cust_DataSet: # iterate through customer dataset
                 try:
                     cust_DataSet_output = i.get_allDetails()
